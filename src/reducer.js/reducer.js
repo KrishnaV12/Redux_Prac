@@ -1,17 +1,19 @@
-const initialstate={}; 
+const initialstate={};
+//     list : []
+// };
 
-const reducer =(state=initialstate , action)=>{
+const passReducer =(state=initialstate , action)=>{
     switch(action.type){
         case "pass":
             return action.payload;
         case "unPass":
             return action.payload;
             default:
-                return state
+            return state
 
     }
 
 
 }
 
-export default reducer;
+export default passReducer;

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import{bindActionCreators} from "redux";
-import { passData } from '../action/action';
-import reducers from '../reducer.js/combineReducer';
-// import { actionCreators } from '../action/bindAction';
+import { passData, unPassData } from '../action/action';
+
+
 const BasicForm = () => {
 
     const myState = useSelector((state)=> state.reducer);
+    // const list = useSelector((state)=>state.passReducers.list)
     const dispatch=useDispatch() ;
-    // const {passData , unPassData}= bindActionCreators(actionCreators, dispatch);
+   
 
 
     
@@ -18,15 +18,18 @@ const BasicForm = () => {
     const [allEntry,setAllEntry]=useState([]);
 
 
-    const submitForm=(e)=>{
-        e.preventDefault();
+    const submitForm=(e)=>{ e.preventDefault(); 
 
-        const newEntry={skill:skill, skill1,skill1 };
+        const newEntry=
+        {
+            skill:skill, 
+            skill1,skill1 
+        };
 
-         setAllEntry([...allEntry,newEntry]);
-         console.log(allEntry)
+        setAllEntry([...allEntry,newEntry]);
+        console.log(allEntry)
 
-         dispatch()
+        
   
     }
 
@@ -35,7 +38,10 @@ const BasicForm = () => {
         <form action="" onSubmit={submitForm}>
         <div>
         <label htmlFor="skill">InputSkill</label>
-        <input type="text" name="skill" id="skill" autoComplete="off" 
+        <input type="text" 
+        name="skill" 
+        id="skill" 
+        autoComplete="off" 
         value={skill}
         onChange={(e)=> setSkill(e.target.value)}
 
@@ -46,11 +52,13 @@ const BasicForm = () => {
             
         <label htmlFor="skill1">InputSkill</label>
         <input type="text" name="skill1" id="skill1"  autoComplete="off"
-         value={skill1}
+         value={ skill1}
          onChange={(e)=> setSkill1(e.target.value)} 
          />
          
         </div>
+        <br/>
+        <br/>
         <button type="submit" onClick={()=>dispatch(passData)}>generate</button>
 
         </form>

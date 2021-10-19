@@ -1,3 +1,5 @@
+
+
 export const passData=(data)=>{
     return (dispatch)=>{
         dispatch({
