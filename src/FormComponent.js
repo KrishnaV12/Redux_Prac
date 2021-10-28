@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUserAction } from "./Actions/userAction";
 import "./form.css";
 
 const FormComponent = (props) => {
-  const [profile , setProfile] = useState("");
+  const [loading , setLoading] = useState("false");
+  const [image , setImage] = useState("");
   const [name , setName] = useState("");
   const [surname , setSurname] = useState("");
   const [position , setPosition] = useState("");
@@ -68,12 +69,40 @@ const FormComponent = (props) => {
   const [lang3 , setLang3] = useState("");
 
 
+  const [certi , setCerti] = useState("");
+  const [certi1 , setCerti1] = useState("");
+
+
   const dispatch = useDispatch();
+
+  
+  const uploadImage = async e=>{
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file' , files[0])
+    data.append('upload_preset' , 'vgjcfeiu')
+    setLoading(true)
+
+    const res = await fetch("	https://api.cloudinary.com/v1_1/krishnav12/image/upload ",
+    {
+      method:'POST',
+      body:data
+    })
+    const file = await res.json()
+    console.log(file)
+
+    setImage(file.secure_url)
+    setLoading(false)
+  }
+
+
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = {
-      profile:profile,
+      image:image,
       name:name,
       surname:surname,
       position:position,
@@ -131,7 +160,10 @@ const FormComponent = (props) => {
       lang:lang,
       lang1:lang1,
       lang2:lang2,
-      lang3:lang3
+      lang3:lang3,
+
+      certi:certi,
+      certi1:certi1
     
     
     
@@ -160,18 +192,17 @@ const FormComponent = (props) => {
   //     })
   //  }
 
-
-
+ 
 
 
   return (
     <div className = "container">
-    <h1 className = "header">RESUME GENERATOR</h1>
+    <h1 className = "header">⚙ RESUME GENERATOR ⚙ </h1>
 
     <form className = "form" onSubmit={(e) => handleSubmit(e)}>
   {/* ............................................................... */}
         <div className= "info">
-        <h2>About</h2>
+        <h2>About 🕵️‍♂️</h2>
 
         {/* <input className = "text__area" 
         type="file" 
@@ -207,14 +238,14 @@ const FormComponent = (props) => {
 
         <input className = "text__area" 
         type="url" 
-        placeholder = "Facebook"
+        placeholder = "Facebook link"
         name = "Facebook" 
         value={facebook}
         onChange={(e)=> {setFacebook(e.target.value)}}/>
 
        <input className = "text__area" 
         type="url" 
-        placeholder = "Insta"
+        placeholder = "Insta link"
         name = "Insta" 
         value={insta}
         onChange={(e)=> {setInsta(e.target.value)}}/>
@@ -222,14 +253,14 @@ const FormComponent = (props) => {
 
        <input className = "text__area" 
         type="url" 
-        placeholder = "LinkedIn"
+        placeholder = "LinkedIn link"
         name = "LinkedIn" 
         value={linkedin}
         onChange={(e)=> {setLinkedin(e.target.value)}}/>
 
        <input className = "text__area" 
         type="text" 
-        placeholder = "Github"
+        placeholder = "Github link"
         name = "Github" 
         value={git}
         onChange={(e)=> {setGit(e.target.value)}}/>
@@ -244,7 +275,7 @@ const FormComponent = (props) => {
 
         <input className = "text__area" 
         type="mail" 
-        placeholder = "Mail"
+        placeholder = "Mail Id"
         name = "Mail" 
         value={mail}
         onChange={(e)=> {setMail(e.target.value)}}/>
@@ -259,7 +290,7 @@ const FormComponent = (props) => {
 
         <input className = "text__area" 
         type="date" 
-        placeholder = "Date"
+        placeholder = "DOB"
         name = "date" 
         value={date}
         onChange={(e)=> {setDate(e.target.value)}}/>
@@ -268,7 +299,7 @@ const FormComponent = (props) => {
         ...................................................................................... */}
        
         <div className= "edu">
-        <h1>Graduation</h1>
+        <h1>Graduation 👨‍🎓</h1>
         <h2>Degree</h2>
         <input className = "text__area" 
         type="text" 
@@ -337,7 +368,7 @@ const FormComponent = (props) => {
 
 
 <div className = "edu2">
-<h1>Educaton</h1>
+<h1>Educaton 👨‍🏫</h1>
 <h2>College</h2>
         <input className = "text__area" 
         type="text" 
@@ -405,45 +436,45 @@ const FormComponent = (props) => {
 
 {/* //.......................................................................// */}
         <div className="skill">
-        <h1>Technical Skills</h1>
+        <h1>Tech Skills 👨‍🔧</h1>
         <input className = "text__area" 
         type="text" 
-        placeholder = "Skill"
+        placeholder = "Skill #1"
         name = "skill" 
         value={skill}
         onChange={(e)=> {setSkill(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Skill"
+        placeholder = "Skill #2"
         name = "skill" 
         value={skill1}
         onChange={(e)=> {setSkill1(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Skill"
+        placeholder = "Skill #3"
         name = "skill" 
         value={skill2}
         onChange={(e)=> {setSkill2(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Skill"
+        placeholder = "Skill #4"
         name = "skill" 
         value={skill3}
         onChange={(e)=> {setSkill3(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Skill"
+        placeholder = "Skill #5"
         name = "skill" 
         value={skill4}
         onChange={(e)=> {setSkill4(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Skill"
+        placeholder = "Skill #6"
         name = "skill" 
         value={skill5}
         onChange={(e)=> {setSkill5(e.target.value)}}/>
@@ -452,45 +483,45 @@ const FormComponent = (props) => {
 
 
         <div className = "softskill">
-        <h1>Soft Skills</h1>
+        <h1>Soft Skills 👩‍🎨</h1>
         <input className = "text__area" 
         type="text" 
-        placeholder = "Soft Skill"
+        placeholder = "Soft Skill  #1"
         name = "nonskill" 
         value={nonskill}
         onChange={(e)=> {setNonskill(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Soft Skill"
+        placeholder = "Soft Skill #2"
         name = "nonskill" 
         value={nonskill1}
         onChange={(e)=> {setNonskill1(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Soft Skill"
+        placeholder = "Soft Skill #3"
         name = "nonskill" 
         value={nonskill2}
         onChange={(e)=> {setNonskill2(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Soft Skill"
+        placeholder = "Soft Skill #4"
         name = "nonskill" 
         value={nonskill3}
         onChange={(e)=> {setNonskill3(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Soft Skill"
+        placeholder = "Soft Skill #5"
         name = "nonskill" 
         value={nonskill4}
         onChange={(e)=> {setNonskill4(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Soft Skill"
+        placeholder = "Soft Skill #6"
         name = "nonskill" 
         value={nonskill5}
         onChange={(e)=> {setNonskill5(e.target.value)}}/>
@@ -502,31 +533,31 @@ const FormComponent = (props) => {
 
       
       <div className = "hobby">
-      <h1>Hobbys</h1>
+      <h1>Hobbys 🏌️‍♀️</h1>
         <input className = "text__area" 
         type="text" 
-        placeholder = "Hobbys"
+        placeholder = "Hobbys #1"
         name = "hobby" 
         value={hobby}
         onChange={(e)=> {setHobby(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Hobbys"
+        placeholder = "Hobbys #2"
         name = "hobby" 
         value={hobby1}
         onChange={(e)=> {setHobby1(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Hobbys"
+        placeholder = "Hobbys #3"
         name = "hobby" 
         value={hobby2}
         onChange={(e)=> {setHobby2(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Hobbys"
+        placeholder = "Hobbys #4"
         name = "hobby" 
         value={hobby3}
         onChange={(e)=> {setHobby3(e.target.value)}}/>
@@ -537,48 +568,75 @@ const FormComponent = (props) => {
 
      
       <div className = "lang">
-      <h1>Language</h1>
+      <h1>Language 🧏‍♀️</h1>
       <input className = "text__area" 
         type="text" 
-        placeholder = "Language"
+        placeholder = "Language #1"
         name = "lang" 
         value={lang}
         onChange={(e)=> {setLang(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Language"
+        placeholder = "Language #2"
         name = "lang" 
         value={lang1}
         onChange={(e)=> {setLang1(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Language"
+        placeholder = "Language #3"
         name = "lang" 
         value={lang2}
         onChange={(e)=> {setLang2(e.target.value)}}/>
 
         <input className = "text__area" 
         type="text" 
-        placeholder = "Language"
+        placeholder = "Language #4"
         name = "lang" 
         value={lang3}
         onChange={(e)=> {setLang3(e.target.value)}}/>
+
+       
 
 
 
 
 
       </div>  
+
+
+      <div className="certi">
+      <h1>Certification 🥇</h1>
+        <input className = "text__area" 
+        type="text" 
+        placeholder = "Certificate #1"
+        name = "certi" 
+        value={certi}
+        onChange={(e)=> {setCerti(e.target.value)}}/>
+
+        <input className = "text__area" 
+        type="text" 
+        placeholder = "Certificate #2"
+        name = "certi" 
+        value={certi1}
+        onChange={(e)=> {setCerti1(e.target.value)}}/>
+        </div>
+
+
       <div className = "profile">
-      <h2>Choose Profile</h2>
+      <h2>Profile Pic 📷</h2>
       <input className = "text__area" 
         type="file" 
-        placeholder = "Profile"
-        name = "profile" 
-        value={profile}
-        onChange={(e)=> {setProfile(e.target.value)}}/>
+        
+        name = "file" 
+        
+        onChange= {uploadImage}/>
+        {
+          loading?(<h3>Loading...</h3>):(
+            <img src={image} style={{width:'50px'}}/>
+          )
+        }
       </div>
   
         

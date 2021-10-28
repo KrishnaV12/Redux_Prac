@@ -279,19 +279,24 @@ const Resume = () => {
       </ol>
                     </div>
                 </div>
-                 {/* <div className="col-lg-6 resume-languages mt-3">
+                 <div className="col-lg-6 resume-languages mt-3">
                     <h5 className="resume-language__heading">
                     Certifications :
                     </h5>
                     <div className="resume-language__body mt-3">
-                         {
-                            certi.map( certi => <Skills value={ certi} />)
+                    <ol className = "bar bar__wrapper bar__name " >
+          
+          <h3>{user.certi}</h3>
+          <h3>{user.certi1}</h3>
+          
+      </ol>
                         
-                        } 
                     </div>
-                </div> */}
+                </div>
             </div>
             </div>
+
+            
             <Link to="/">Go Back</Link>
         </div>
      

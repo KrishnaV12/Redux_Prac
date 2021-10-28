@@ -26,6 +26,9 @@ const Sidebar =()=>{
     const user = useSelector((state) => {
         return state.user;
     });
+   
+
+    
 
 
 
@@ -33,7 +36,9 @@ const Sidebar =()=>{
     return(
         <>
         <div className="sidebar">
-            <img src={user.profile} alt="avatar" className="sidebar_avatar"/>
+            <img src={user.image} alt="avatar" className="sidebar_avatar"/>
+           
+       
             <div className="sidebar_name">{user.name} <span>{user.surname}</span></div>
             <div className="sidebar_item sidebar_title">{user.position}</div>
             
